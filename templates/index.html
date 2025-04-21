@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Boardgames</title><title>
+    </head>
+    <body>
+        <h1>Boardgames</h1>
+        <div><button>Add a boardgame</div>button><br/><br/></div>   
+        <div>
+            <table border="1">
+                <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Product type</th>
+                    <th>Age range</th>
+                    <th>Players</th>
+                    <th>Price</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Game 1</td>
+                    <td>Boardgame</td>
+                    <td>8+</td>
+                    <td>2-4</td>
+                    <td>20</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Catan</td>
+                    <td>Boardgame</td>
+                    <td>8+</td>
+                    <td>2-4</td>
+                    <td>20</td>
+                    <td><button>update</button></td>
+                    <td><button>delete</button></td>
+                    
+                </tr>
+
+            </table>
+        </table>
+        <br/>
+        </div>
+        <div>
+            <h2><span>Create a</span> <span style="display:none">Update this</span> Book</h2>
+            id <input type="text" name="id"><br/>
+            Name <input type="text" name="title"><br/>
+            Product type <input type="text" name="product_type"><br/>
+            Age range <input type="number" name="age_range"><br/>
+            Players <input type="number" name="players"><br/>
+            Price <input type="number" name="price"><br/>
+            Just to show select <select name="status">
+                <option value="instock">in stock</option>
+                <option value="outstock">out of stock</option>
+                <option value="other">out of print</option>
+            </select><br/>
+            <span><button>Create</button></span>
+            <span><button style="display:none">Update</button></span>
+
+            <script src="/static/script.js"></script>
+        </div>
+        
+    </body>
+</html>
