@@ -1,13 +1,12 @@
-# Create a server
+# Create a server that will connect with the database.
+import mysql.connector as mysql    
+from mysql import mysql
 
-from flask import Flask, request, jsonify
+db = mysql()
 
-app = Flask(__name__)
-@app.route('/')
-def index():
-        return  "hello there"
-    
-if __name__ == '__main__':
-    app.run(debug=True)
-    
-      
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+
+    def to_dict(self):
+        return {'id': self.id, 'name': self.name}

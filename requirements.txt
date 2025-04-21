@@ -1,0 +1,7 @@
+Flask
+mysql-connector-python
+requests
+jsonify
+Flask-Cors
+pymysql 
+
