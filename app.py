@@ -1,44 +1,35 @@
 from flask import Flask, request, jsonify, render_template
-import mysql.connector as mysql
-from server import db, Item
+import mysql.connector
+from dbconfig import mysql as db 
 
-app = Flask(__name__)
-app.config['MYSQL_DATABASE_URI'] = 'mysql:///items.db'
-app.config['MYSQL_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
+from boardgamesDAO import boardgamesDAO
 
-with app.app_context():
-    db.create_all()
+app = Flask(__name__, static_url_path='', static_folder='.')
 
 # REST API Routes
 
-@app.route('/api/items', methods=['GET'])
+@app.route('/boardgamesDAO', methods=['GET'])
 def get_items():
-    items = Item.query.all()
-    return jsonify([item.to_dict() for item in items])
+    items = boardgamesDAO.get_all() 
+    return jsonify(items)
 
-@app.route('/api/items', methods=['POST'])
+@app.route('/boardgamesDAO', methods=['POST'])
 def add_item():
     data = request.json
-    item = Item(name=data['name'])
-    db.session.add(item)
-    db.session.commit()
+    item = boardgamesDAO.add(name=data['name'])
     return jsonify(item.to_dict()), 201
 
-@app.route('/api/items/<int:item_id>', methods=['PUT'])
+@app.route('/boardgamesDAO/<int:item_id>', methods=['PUT'])
 def update_item(item_id):
     data = request.json
-    item = Item.query.get_or_404(item_id)
-    item.name = data['name']
-    db.session.commit()
-    return jsonify(item.to_dict())
+    boardgamesDAO.update(item_id, data['name'])
+    return jsonify({'id': item_id, 'name': data['name']})
 
-@app.route('/api/items/<int:item_id>', methods=['DELETE'])
+@app.route('/boardgamesDAO/<int:item_id>', methods=['DELETE'])
 def delete_item(item_id):
-    item = Item.query.get_or_404(item_id)
-    db.session.delete(item)
-    db.session.commit()
-    return jsonify({'message': 'Item deleted'})
+    boardgamesDAO.delete(item_id)
+    return jsonify({'message': 'game deleted'})
+
 
 # Web UI Route
 

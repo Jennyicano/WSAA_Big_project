@@ -1,12 +1,12 @@
 # Create a server that will connect with the database.
-import mysql.connector as mysql    
-from mysql import mysql
+import mysql.connector
+from dbconfig import mysql as db 
 
-db = mysql()
+conn = mysql.connector.connect(**db)
+cursor = conn.cursor(dictionary=True)
 
-class Item(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+cursor.execute("SELECT * FROM items")
+results = cursor.fetchall()
 
-    def to_dict(self):
-        return {'id': self.id, 'name': self.name}
+for row in results:
+    print(row)
