@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
-from dbconfig import mysql as db 
+import dbconfig as db  
 from flask_cors import cross_origin
 
 from boardgamesDAO import boardgamesDAO
@@ -15,8 +15,10 @@ def index():
 
 #curl "http://127.0.0.1:5000/boardgamesDAO"
 @app.route('/boardgamesDAO', methods=['GET'])
-def getall():
-    items = boardgamesDAO.getall() 
+def get_all():
+    print("getAll app")
+    items = boardgamesDAO.getAll() 
+    print("llega hasta aquí")
     return jsonify(items)
 
 @app.route('/boardgamesDAO', methods=['POST'])
@@ -38,10 +40,6 @@ def delete_item(item_id):
 
 
 # Web UI Route
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
