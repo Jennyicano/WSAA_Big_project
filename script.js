@@ -1,5 +1,5 @@
-async function loadItems() {
-    const res = await fetch('/api/items');
+async function loadboardgame() {
+    const res = await fetch('/api/boardgame');
     const items = await res.json();
     const list = document.getElementById('itemList');
     list.innerHTML = '';
@@ -13,19 +13,19 @@ async function loadItems() {
     });
 }
 
-async function addItem() {
+async function addboardgame() {
     const name = document.getElementById('itemName').value;
-    await fetch('/api/items', {
+    await fetch('/api/boardgame', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name })
     });
-    document.getElementById('itemName').value = '';
+    document.getElementById('boardgameName').value = '';
     loadItems();
 }
 
-async function updateItem(id, name) {
-    await fetch(`/api/items/${id}`, {
+async function updateboardgame(id, name) {
+    await fetch(`/api/boardgame/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name })
@@ -33,8 +33,8 @@ async function updateItem(id, name) {
     loadItems();
 }
 
-async function deleteItem(id) {
-    await fetch(`/api/items/${id}`, {
+async function deleteBoardgame(id) {
+    await fetch(`/api/boardgame/${id}`, {
         method: 'DELETE'
     });
     loadItems();

@@ -1,16 +1,22 @@
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
 from dbconfig import mysql as db 
+from flask_cors import cross_origin
 
 from boardgamesDAO import boardgamesDAO
 
 app = Flask(__name__, static_url_path='', static_folder='.')
 
 # REST API Routes
+@app.route('/')
+@cross_origin()
+def index():
+    return render_template('index.html')
 
+#curl "http://127.0.0.1:5000/boardgamesDAO"
 @app.route('/boardgamesDAO', methods=['GET'])
-def get_items():
-    items = boardgamesDAO.get_all() 
+def getall():
+    items = boardgamesDAO.getall() 
     return jsonify(items)
 
 @app.route('/boardgamesDAO', methods=['POST'])
