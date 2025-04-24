@@ -2,6 +2,6 @@ Flask
 mysql-connector-python
 requests
 jsonify
-Flask-Cors
+flask_cors
 pymysql 
 

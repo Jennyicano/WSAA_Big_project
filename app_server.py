@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
 import dbconfig as db  
-from flask_cors import cross_origin
+from flask_cors import CORS, cross_origin
 
 from boardgamesDAO import boardgamesDAO
 
 app = Flask(__name__, static_url_path='', static_folder='.')
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # REST API Routes
 @app.route('/')
