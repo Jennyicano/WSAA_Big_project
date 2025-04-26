@@ -1,7 +1,7 @@
 // This script handles the CRUD operations for boardgames in the web application
 // Load boardgames from the server and display them in the table
 async function loadBoardgames() {
-    const response = await fetch('/api/boardgame');
+    const response = await fetch('/boardgames');
     const boardgames = await response.json();
 
     const tableBody = document.querySelector('table tbody');
@@ -36,7 +36,7 @@ function showAdd() {
 
 // function to show the modal for updating an existing boardgame
 async function showUpdate(id) {
-    const response = await fetch(`/api/boardgame/${id}`);
+    const response = await fetch(`/boardgames/${id}`);
     const game = await response.json();
 
     document.getElementById('idInput').value = game.id;
@@ -56,7 +56,7 @@ async function showUpdate(id) {
 async function doCreate() {
     const boardgame = readForm();
 
-    await fetch('/api/boardgame', {
+    await fetch('/boardgames', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(boardgame)
@@ -71,7 +71,7 @@ async function doUpdate() {
     const id = document.getElementById('idInput').value;
     const boardgame = readForm();
 
-    await fetch(`/api/boardgame/${id}`, {
+    await fetch(`/boardgames/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(boardgame)
@@ -84,7 +84,7 @@ async function doUpdate() {
 // Delete a boardgame
 async function deleteBoardgame(id) {
     if (confirm('Are you sure you want to delete this boardgame?')) {
-        await fetch(`/api/boardgame/${id}`, {
+        await fetch(`/boardgames/${id}`, {
             method: 'DELETE'
         });
         loadBoardgames();

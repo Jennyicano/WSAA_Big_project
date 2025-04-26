@@ -2,7 +2,7 @@
 <html lang="en">
 
     <head>
-        <title>Boardgames</title></title>
+        <title>Boardgames</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@
     
         <div>
             <table id="BoardgameTable" border="1">
+            </thead>
                 <tr>
                     <th>id</th>
                     <th>Name</th>
@@ -109,34 +110,18 @@
     
             <input type="hidden" name="id" />
     
-            id: <input type="text" name="id"><br/>
-            Name: <input type="text" name="title"><br/>
-            Product type: <input type="text" name="product_type"><br/>
-            Age range: <input type="number" name="age_range"><br/>
-            Players: <input type="number" name="players"><br/>
-            Price: <input type="number" name="price"><br/><br/>
+            id: <input type="number" name="id"><br/>
+            Name: <input type="text" name="Name"><br/>
+            Product type: <input type="text" name="Product_type"><br/>
+            Age range: <input type="number" name="Age_range"><br/>
+            Players: <input type="number" name="Players"><br/>
+            Price: <input type="number" name="Price"><br/><br/>
     
             <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
             <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
         </div>
+        
+        <script src="boardgame.js"></script>
     
-        <script>
-            function showAdd() {
-                document.getElementById('showAddBoardgameForm').style.display = 'block';
-                document.getElementById('createLabel').style.display = 'inline';
-                document.getElementById('updateLabel').style.display = 'none';
-            }
-    
-            function doCreate() {
-                alert("Creating a new boardgame...");
-            }
-    
-            function doUpdate() {
-                alert("Updating a boardgame...");
-            }
-        </script>
-    </div>
-            <script src="boardgame.js"></script>
-    
-    <body>
+</body>
 </html>
