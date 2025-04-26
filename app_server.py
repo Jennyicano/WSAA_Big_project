@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS, cross_origin
 import mysql.connector
 import dbconfig as db  
-from flask_cors import CORS, cross_origin
 
 from boardgamesDAO import boardgamesDAO
 

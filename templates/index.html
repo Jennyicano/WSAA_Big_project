@@ -1,14 +1,69 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
     <head>
-        <title>Boardgames</title><title>
-        <script src="/Users/jenniferibanezcano/Library/CloudStorage/OneDrive-AtlanticTU/WSAA_Big_project/script.js"></script>
-    
+        <title>Boardgames</title></title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        button {
+            padding: 8px 16px;
+            margin-bottom: 10px;
+            background-color:rgb(61, 146, 64);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
     </head>
+
     <body>
         <h1>Boardgames</h1>
-        <div><button>Add a boardgame</div>button><br/><br/></div>   
+    
         <div>
-            <table border="1">
+            <button id="showAddaboardgameButton" onclick="showAdd()">Create</button>
+        </div>   
+    
+        <div>
+            <table id="BoardgameTable" border="1">
                 <tr>
                     <th>id</th>
                     <th>Name</th>
@@ -19,6 +74,8 @@
                     <th>Update</th>
                     <th>Delete</th>
                 </tr>
+            </thead>
+            <tbody>
                 <tr>
                     <td>1</td>
                     <td>Game 1</td>
@@ -26,8 +83,8 @@
                     <td>8+</td>
                     <td>2-4</td>
                     <td>20</td>
-                    <td><button>update</button></td>
-                    <td><button>delete</button></td>
+                    <td><button>Update</button></td>
+                    <td><button>Delete</button></td>
                 </tr>
                 <tr>
                     <td>2</td>
@@ -36,34 +93,50 @@
                     <td>8+</td>
                     <td>2-4</td>
                     <td>20</td>
-                    <td><button>update</button></td>
-                    <td><button>delete</button></td>
-                    
+                    <td><button>Update</button></td>
+                    <td><button>Delete</button></td>
                 </tr>
-
+            </tbody>
             </table>
-        </table>
-        <br/>
+            <br/>
         </div>
-        <div>
-            
-            id <input type="text" name="id"><br/>
-            Name <input type="text" name="title"><br/>
-            Product type <input type="text" name="product_type"><br/>
-            Age range <input type="number" name="age_range"><br/>
-            Players <input type="number" name="players"><br/>
-            Price <input type="number" name="price"><br/>
-            Just to show select <select name="status">
-                <option value="instock">in stock</option>
-                <option value="outstock">out of stock</option>
-                <option value="other">out of print</option>
-            </select><br/>
-            <span><button>Create</button></span>
-            <span><button style="display:none">Update</button></span>
-            <h2><span>Create a</span> <span style="display:none">Update this</span> Boardgame</h2>
-
-            <script src="/static/script.js"></script>
+    
+        <div id="showAddBoardgameForm" style="display:none;">
+            <h2>
+                <span id="createLabel">Create a</span> 
+                <span id="updateLabel" style="display:none;">Update</span> Boardgame
+            </h2>
+    
+            <input type="hidden" name="id" />
+    
+            id: <input type="text" name="id"><br/>
+            Name: <input type="text" name="title"><br/>
+            Product type: <input type="text" name="product_type"><br/>
+            Age range: <input type="number" name="age_range"><br/>
+            Players: <input type="number" name="players"><br/>
+            Price: <input type="number" name="price"><br/><br/>
+    
+            <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+            <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
         </div>
-        
-    </body>
+    
+        <script>
+            function showAdd() {
+                document.getElementById('showAddBoardgameForm').style.display = 'block';
+                document.getElementById('createLabel').style.display = 'inline';
+                document.getElementById('updateLabel').style.display = 'none';
+            }
+    
+            function doCreate() {
+                alert("Creating a new boardgame...");
+            }
+    
+            function doUpdate() {
+                alert("Updating a boardgame...");
+            }
+        </script>
+    </div>
+            <script src="boardgame.js"></script>
+    
+    <body>
 </html>
