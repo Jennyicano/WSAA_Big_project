@@ -20,16 +20,13 @@ class BoardgamesDAO:
         self.database = db.mysql['database']
         
     def getcursor(self):
-        print("getcursor DAO")
         self.connection = mysql.connector.connect(
             host=self.host,
             user=self.user,
             password=self.password,
             database=self.database
         )
-        print("cursor bb created")
         self.cursor = self.connection.cursor()
-        print("cursor created")
         return self.cursor
     
     def closeAll(self):
@@ -37,11 +34,8 @@ class BoardgamesDAO:
         self.cursor.close()
          
     def getAll(self):
-        print("getAll DAO")
         cursor = self.getcursor()
-        print("después del getcursor")
         sql="select * from Boardgames;"
-        print("después del select * from boardgames")
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
