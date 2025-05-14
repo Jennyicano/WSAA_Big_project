@@ -4,7 +4,7 @@ import mysql.connector
 import dbconfig as db  
 from boardgamesDAO import boardgamesDAO
 
-app = Flask(__name__, static_url_path='', static_folder='.')
+app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 CORS(app) # Enable CORS for all routes
 
