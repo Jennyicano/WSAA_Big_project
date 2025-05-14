@@ -10,6 +10,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         
         <!-- My custom stylesheet -->
+        <script src="{{url_for('static', filename='boardgamescript.js')}}"></script>
         <link rel="stylesheet" href="{{url_for('static', filename='tablestyle.css')}}">
     
     </head>
@@ -86,9 +87,6 @@
             <span><button id="doDeleteButton" onclick="doDelete()">Delete</button></span>
             <span><button id="doCancelButton" onclick="doCancel()">Cancel</button></span>
         </div>
-
         
-        <script src="{{ url_for('static', filename='boardgamescript.js') }}"></script>
-    
 </body>
 </html>

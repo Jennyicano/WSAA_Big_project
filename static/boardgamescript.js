@@ -1,112 +1,164 @@
 // This script handles the CRUD operations for boardgames in the web application
 // Load boardgames from the server and display them in the table
-async function loadBoardgames() {
-    const response = await fetch('/boardgames');
-    const boardgames = await response.json();
 
-    const tableBody = document.querySelector('table tbody');
-    tableBody.innerHTML = '';
+document.addEventListener('DOMContentLoaded', getAllBoardgames);
 
-    boardgames.forEach(game => {
-        const row = document.createElement('tr');
-
-        row.innerHTML = `
-            <td>${game.id}</td>
-            <td>${game.Name}</td>
-            <td>${game.Product_type}</td>
-            <td>${game.Age_range}</td>
-            <td>${game.Players}</td>
-            <td>${game.Price}</td>
-            <td><button onclick="showUpdate(${game.id})">Update</button></td>
-            <td><button onclick="deleteBoardgame(${game.id})">Delete</button></td>
-        `;
-
-        tableBody.appendChild(row);
+function getAllBoardgames() {
+    $.ajax({
+        url: '/boardgames',
+        method: 'GET',
+        dataType: 'json',
+        success: function (result) {
+            for (let game of result) {
+                addBoardgameToTable(game);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("Error loading boardgames:", error);
+        }
     });
 }
 
 // function to show the modal to create a new boardgame form
 function showAdd() {
-    clearForm()
-    document.getElementById('createLabel').style.display = 'inline';
-    document.getElementById('updateLabel').style.display = 'none';
-    document.getElementById('doCreateButton').style.display = 'inline-block';
-    document.getElementById('doUpdateButton').style.display = 'none';
-    document.getElementById('showBoardgameForm').style.display = 'block';
+    document.getElementById('showAddaboardgameButton').style.display = "none";
+    document.getElementById('BoardgameTable').style.display = "none";
+    document.getElementById('showBoardgameForm').style.display = "block";
+
+    document.getElementById('createLabel').style.display = "inline";
+    document.getElementById('updateLabel').style.display = "none";
+
+    document.getElementById('doCreateButton').style.display = "inline-block";
+    document.getElementById('doUpdateButton').style.display = "none";
+
+    clearForm();
 }
 
+// function to show the modal to view all boardgames
+function showViewAll() {
+    document.getElementById('showAddaboardgameButton').style.display = "block";
+    document.getElementById('BoardgameTable').style.display = "block";
+    document.getElementById('showBoardgameForm').style.display = "none";
+}
 
 // function to show the modal for updating an existing boardgame
-async function showUpdate(id) {
-    const response = await fetch(`/boardgames/${id}`);
-    const game = await response.json();
+function showUpdate(button) {
+    const row = button.parentNode.parentNode;
+    const boardgame = getBoardgameFromRow(row);
+    populateFormWithBoardgame(boardgame);
 
-    document.getElementById('idInput').value = game.id;
-    document.getElementById('nameInput').value = game.Name;
-    document.getElementById('productTypeInput').value = game.Product_type;
-    document.getElementById('ageRangeInput').value = game.Age_range;
-    document.getElementById('playersInput').value = game.Players;
-    document.getElementById('priceInput').value = game.Price;
+    document.getElementById('showAddaboardgameButton').style.display = "none";
+    document.getElementById('BoardgameTable').style.display = "none";
+    document.getElementById('showBoardgameForm').style.display = "block";
 
     document.getElementById('createLabel').style.display = 'none';
     document.getElementById('updateLabel').style.display = 'inline';
     document.getElementById('doCreateButton').style.display = 'none';
     document.getElementById('doUpdateButton').style.display = 'inline-block';
-    document.getElementById('showBoardgameForm').style.display = 'block';
 }
 
 // Create new boardgame
-async function doCreate() {
-    const boardgame = readForm();
-
-    await fetch('/boardgames', {
+function doCreate() {
+    const game = getBoardgameFromForm();
+    $.ajax({
+        url: '/boardgames',
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(boardgame)
+        data: JSON.stringify(game),
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function (result) {
+            game.id = result.id;
+            addBoardgameToTable(game);
+            clearForm();
+            showViewAll();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error creating boardgame:", error);
+        }
     });
-
-    $('#addBoardgameModal').modal('hide');
-    loadBoardgames();
 }
 
 // Update existing boardgames with new data
-async function doUpdate() {
-    const id = document.getElementById('idInput').value;
-    const boardgame = readForm();
-
-    await fetch(`/boardgames/${id}`, {
+function doUpdate() {
+    const game = getBoardgameFromForm();
+    $.ajax({
+        url: `/boardgames/${game.id}`,
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(boardgame)
+        data: JSON.stringify(game),
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function () {
+            const row = document.getElementById(game.id);
+            setBoardgameInRow(row, game);
+            clearForm();
+            showViewAll();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error updating boardgame:", error);
+        }
     });
-
-    document.getElementById('showBoardgameForm').style.display = 'none';
-    loadBoardgames();
 }
 
 // Delete a boardgame
-async function deleteBoardgame(id) {
-    if (confirm('Are you sure you want to delete this boardgame?')) {
-        await fetch(`/boardgames/${id}`, {
-            method: 'DELETE'
-        });
-        loadBoardgames();
-    }
+function doDelete(button) {
+    const row = button.parentNode.parentNode;
+    const id = row.getAttribute("id");
+    if (!confirm("Are you sure you want to delete this boardgame?")) return;
+
+    $.ajax({
+        url: `/boardgames/${id}`,
+        method: 'DELETE',
+        success: function () {
+            row.remove();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting boardgame:", error);
+        }
+    });
 }
 
-// Helper: Read form data
-// This function reads the values from the form fields and returns them as an object
-function readForm() {
+function getBoardgameFromRow(row) {
     return {
-        Name: document.getElementById('nameInput').value,
-        Product_type: document.getElementById('productTypeInput').value,
-        Age_range: document.getElementById('ageRangeInput').value,
-        Players: document.getElementById('playersInput').value,
-        Price: document.getElementById('priceInput').value
+        id: row.cells[0].textContent,
+        Name: row.cells[1].textContent,
+        Product_type: row.cells[2].textContent,
+        Age_range: row.cells[3].textContent,
+        Players: row.cells[4].textContent,
+        Price: row.cells[5].textContent
     };
 }
 
-// Helper: Clear form fields 
+function setBoardgameInRow(row, game) {
+    row.cells[0].textContent = game.id;
+    row.cells[1].textContent = game.Name;
+    row.cells[2].textContent = game.Product_type;
+    row.cells[3].textContent = game.Age_range;
+    row.cells[4].textContent = game.Players;
+    row.cells[5].textContent = game.Price;
+}
+
+function populateFormWithBoardgame(game) {
+    const form = document.getElementById('showBoardgameForm');
+    form.querySelector('input[name="id"]').value = game.id;
+    form.querySelector('input[name="Name"]').value = game.Name;
+    form.querySelector('input[name="Product_type"]').value = game.Product_type;
+    form.querySelector('input[name="Age_range"]').value = game.Age_range;
+    form.querySelector('input[name="Players"]').value = game.Players;
+    form.querySelector('input[name="Price"]').value = game.Price;
+}
+
+function getBoardgameFromForm() {
+    const form = document.getElementById('showBoardgameForm');
+    return {
+        id: form.querySelector('input[name="id"]').value,
+        Name: form.querySelector('input[name="Name"]').value,
+        Product_type: form.querySelector('input[name="Product_type"]').value,
+        Age_range: form.querySelector('input[name="Age_range"]').value,
+        Players: form.querySelector('input[name="Players"]').value,
+        Price: form.querySelector('input[name="Price"]').value
+    };
+}
+ 
 // This function clears the values of the form fields
 function clearForm() {
     document.getElementById('idInput').value = '';
@@ -117,5 +169,19 @@ function clearForm() {
     document.getElementById('priceInput').value = '';
 }
 
-// Load boardgames when page loads
-document.addEventListener('DOMContentLoaded', loadBoardgames);
+function addBoardgameToTable(game) {
+    const table = document.getElementById('BoardgameTable');
+    const row = table.insertRow(-1);
+    row.setAttribute("id", game.id);
+
+    row.insertCell(0).textContent = game.id;
+    row.insertCell(1).textContent = game.Name;
+    row.insertCell(2).textContent = game.Product_type;
+    row.insertCell(3).textContent = game.Age_range;
+    row.insertCell(4).textContent = game.Players;
+    row.insertCell(5).textContent = game.Price;
+
+    row.insertCell(6).innerHTML = '<button onclick="showUpdate(this)">Update</button>';
+    row.insertCell(7).innerHTML = '<button onclick="doDelete(this)">Delete</button>';
+}
+
