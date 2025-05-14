@@ -25,14 +25,16 @@ async function loadBoardgames() {
     });
 }
 
-// function to show the modal for creating a new boardgame
+// function to show the modal to create a new boardgame form
 function showAdd() {
-    clearForm();
-    document.getElementById('exampleModalLabel').innerText = 'Create a Boardgame';
+    clearForm()
+    document.getElementById('createLabel').style.display = 'inline';
+    document.getElementById('updateLabel').style.display = 'none';
     document.getElementById('doCreateButton').style.display = 'inline-block';
     document.getElementById('doUpdateButton').style.display = 'none';
-    $('#addBoardgameModal').modal('show');
+    document.getElementById('showBoardgameForm').style.display = 'block';
 }
+
 
 // function to show the modal for updating an existing boardgame
 async function showUpdate(id) {
@@ -46,10 +48,11 @@ async function showUpdate(id) {
     document.getElementById('playersInput').value = game.Players;
     document.getElementById('priceInput').value = game.Price;
 
-    document.getElementById('exampleModalLabel').innerText = 'Update Boardgame';
+    document.getElementById('createLabel').style.display = 'none';
+    document.getElementById('updateLabel').style.display = 'inline';
     document.getElementById('doCreateButton').style.display = 'none';
     document.getElementById('doUpdateButton').style.display = 'inline-block';
-    $('#addBoardgameModal').modal('show');
+    document.getElementById('showBoardgameForm').style.display = 'block';
 }
 
 // Create new boardgame
@@ -66,7 +69,7 @@ async function doCreate() {
     loadBoardgames();
 }
 
-// Update existing boardgame with new data
+// Update existing boardgames with new data
 async function doUpdate() {
     const id = document.getElementById('idInput').value;
     const boardgame = readForm();
@@ -77,7 +80,7 @@ async function doUpdate() {
         body: JSON.stringify(boardgame)
     });
 
-    $('#addBoardgameModal').modal('hide');
+    document.getElementById('showBoardgameForm').style.display = 'none';
     loadBoardgames();
 }
 

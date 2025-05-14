@@ -67,27 +67,17 @@
                 <span id="createLabel">Create a</span> 
                 <span id="updateLabel">Update</span> Boardgame</h2>
                 
-                <input type="hidden" name="id" />
-                Name: <input type="text" name="Name"><br/>
-                Product type: <input type="text" name="Product_type"><br/>
-                Age range: <input type="number" name="Age_range"><br/>
-                Players: <input type="number" name="Players"><br/>
-                Price: <input type="number" name="Price"><br/><br/>
-                
-            <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
-            <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+                <input type="hidden" name="id" id="idInput"/>
+                Name: <input type="text" name="Name" id="nameInput"><br/>
+                Product type: <input type="text" name="Product_type" id="productTypeInput"><br/>
+                Age range: <input type="number" name="Age_range" id="ageRangeInput"><br/>
+                Players: <input type="number" name="Players" id="playersInput"><br/>
+                Price: <input type="number" name="Price" id="priceInput"><br/><br/>
+
+                <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+                <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
         </div>
-        
-        <div id="showUpdateBoardgameForm" style="display:none;">
-            <h2>Update Boardgame</h2>
-            <input type="hidden" name="id" />
-            Name: <input type="text" name="Name"><br/>
-            Product type: <input type="text" name="Product_type"><br/>
-            Age range: <input type="number" name="Age_range"><br/>
-            Players: <input type="number" name="Players"><br/>
-            Price: <input type="number" name="Price"><br/><br/>
-            <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
-        </div>
+
 
         <div id="showDeleteBoardgameForm" style="display:none;">
             <h2>Delete Boardgame</h2>
