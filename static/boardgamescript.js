@@ -14,7 +14,7 @@ function getAllBoardgames() {
             }
         },
         error: function (xhr, status, error) {
-            console.error("Error loading boardgames:", error);
+            console.error("Error loading boardgames:", xhr.responseText || error);
         }
     });
 }
@@ -63,17 +63,11 @@ function doCreate() {
     $.ajax({
         url: '/boardgames',
         method: 'POST',
-        data: JSON.stringify(game),
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
-        success: function (result) {
-            game.id = result.id;
-            addBoardgameToTable(game);
-            clearForm();
-            showViewAll();
-        },
+        contentType: 'application/json',          
+        data: JSON.stringify(game),               
+        success: getAllBoardgames,                
         error: function (xhr, status, error) {
-            console.error("Error creating boardgame:", error);
+            console.error("Error creating boardgame:", xhr.responseText || error);
         }
     });
 }
@@ -84,35 +78,34 @@ function doUpdate() {
     $.ajax({
         url: `/boardgames/${game.id}`,
         method: 'PUT',
-        data: JSON.stringify(game),
-        contentType: "application/json; charset=utf-8",
-        dataType: 'json',
+        contentType: 'application/json',          
+        data: JSON.stringify(game),               
         success: function () {
-            const row = document.getElementById(game.id);
-            setBoardgameInRow(row, game);
-            clearForm();
-            showViewAll();
+            getAllBoardgames();                   
+            clearForm();                          
+            showViewAll();                        
         },
         error: function (xhr, status, error) {
-            console.error("Error updating boardgame:", error);
+            console.error("Error updating boardgame:", xhr.responseText || error);
         }
     });
 }
 
 // Delete a boardgame
 function doDelete(button) {
-    const row = button.parentNode.parentNode;
-    const id = row.getAttribute("id");
+    const row = button.closest('tr');             
+    const id = row.getAttribute("id");            
+
     if (!confirm("Are you sure you want to delete this boardgame?")) return;
 
     $.ajax({
         url: `/boardgames/${id}`,
         method: 'DELETE',
         success: function () {
-            row.remove();
+            row.remove();                          
         },
         error: function (xhr, status, error) {
-            console.error("Error deleting boardgame:", error);
+            console.error("Error deleting boardgame:", xhr.responseText || error);
         }
     });
 }

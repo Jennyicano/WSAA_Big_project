@@ -2,15 +2,15 @@
 <html lang="en">
 
     <head>
+        <meta charset="UTF-8"> <!--Tell the browser what character encoding to use when displaying the HTML page -->
         <title>Boardgames</title>
 
         <!-- jQuery and Bootstrap CDN -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        
+        <!-- CSS -->
         <link rel="stylesheet" href="{{url_for('static', filename='tablestyle.css')}}">
-        <script src="{{url_for('static', filename='boardgamescript.js')}}"></script>
     
     </head>
 
@@ -35,7 +35,18 @@
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="BoardgameTableBody">
+                <!-- Example data, this should be dynamically generated -->
+                <tr>
+                    <td>0</td>
+                    <td>Game 0</td>
+                    <td>Boardgame</td>
+                    <td>8+</td>
+                    <td>2-4</td>
+                    <td>20</td>
+                    <td><button onclick="showUpdate(this)">Update</button></td>
+                    <td><button onclick="doDelete(this)">Delete</button></td>
+                </tr>   
                 <tr>
                     <td>1</td>
                     <td>Game 1</td>
@@ -65,7 +76,8 @@
         <div id='showBoardgameForm' style="display:none;">
             <h2>
                 <span id="createLabel">Create a</span> 
-                <span id="updateLabel">Update</span> Boardgame</h2>
+                <span id="updateLabel" style="display:none;">Update</span> Boardgame
+            </h2>
                 
                 <input type="hidden" name="id" id="idInput"/>
                 Name: <input type="text" name="Name" id="nameInput"><br/>
@@ -75,17 +87,24 @@
                 Price: <input type="number" name="Price" id="priceInput"><br/><br/>
 
                 <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
-                <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+                <span><button id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button></span>
         </div>
 
 
         <div id="showDeleteBoardgameForm" style="display:none;">
             <h2>Delete Boardgame</h2>
+
             <input type="hidden" name="id" />
             <span>Are you sure you want to delete this boardgame?</span><br/>
             <span><button id="doDeleteButton" onclick="doDelete()">Delete</button></span>
             <span><button id="doCancelButton" onclick="doCancel()">Cancel</button></span>
         </div>
-        
+
+       <!-- JavaScript file  --> 
+        <script src="{{url_for('static', filename='boardgamescript.js')}}"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {getAllBoardgames();});
+        </script>
 </body>
+
 </html>
