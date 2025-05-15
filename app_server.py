@@ -31,7 +31,7 @@ def update_item(item_id):
     boardgamesDAO.update(item_id, data)
     return jsonify({'id': item_id, **data})
 
-@app.route('/boardgames/<int:id>', methods=['DELETE'])
+@app.route('/boardgames/<int:item_id>', methods=['DELETE'])
 def delete_item(item_id):
     boardgamesDAO.delete(item_id)
     return jsonify({'message': 'boardgame deleted'})
