@@ -7,8 +7,6 @@ from boardgamesDAO import boardgamesDAO
 app = Flask(__name__)
 CORS(app) # Enable CORS for all routes
 app.config['CORS_HEADERS'] = 'Content-Type'
-
-app = Flask(__name__, static_url_path='', static_folder='static')
  
 # REST API Routes
 @app.route('/')
