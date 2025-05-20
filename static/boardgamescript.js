@@ -148,7 +148,7 @@ function getBoardgameFromForm() {
         Product_type: form.querySelector('input[name="Product_type"]').value,
         Age_range: parseInt(form.querySelector('input[name="Age_range"]').value),
         Players: parseInt(form.querySelector('input[name="Players"]').value),
-        PPrice: parseInt(form.querySelector('input[name="Price"]').value)
+        Price: parseInt(form.querySelector('input[name="Price"]').value)
     };
 }
  

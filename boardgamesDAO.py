@@ -60,6 +60,15 @@ class BoardgamesDAO:
 
     def create(self, boardgame):
         cursor = self.getcursor()
+        # Adding a fallback for age_range if it's None
+        age_range = boardgame.get("Age_range") or "N/A"  
+        values = (
+        boardgame.get("Name"),
+        boardgame.get("Product_type"),
+        age_range,
+        boardgame.get("Players"),
+        boardgame.get("Price")
+    )
         sql="insert into Boardgames (Name,Product_type, Age_range, Players, Price) values (%s,%s,%s,%s,%s);"
         values = (boardgame.get("Name"), boardgame.get("Product_type"), boardgame.get("Age_range"), boardgame.get("Players"), boardgame.get("Price"))
         cursor.execute(sql, values)

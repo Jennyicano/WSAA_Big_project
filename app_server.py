@@ -21,7 +21,9 @@ def getAll():
 
 @app.route('/boardgames', methods=['POST'])
 def add_item():
+    print("🔔 POST /boardgames received!")
     data = request.json
+    print("📦 Data received:", data)
     item = boardgamesDAO.create(data)
     return jsonify(item), 201
 
