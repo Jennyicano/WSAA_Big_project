@@ -5,15 +5,16 @@ import dbconfig as db
 from boardgamesDAO import boardgamesDAO
 
 app = Flask(__name__)
-app.config['CORS_HEADERS'] = 'Content-Type'
 CORS(app) # Enable CORS for all routes
+app.config['CORS_HEADERS'] = 'Content-Type'
 
+app = Flask(__name__, static_url_path='', static_folder='static')
+ 
 # REST API Routes
 @app.route('/')
 def index():
     return render_template('index.html')
 
-#curl "http://127.0.0.1:5000/boardgames"
 @app.route('/boardgames', methods=['GET'])
 def getAll():
     items = boardgamesDAO.getAll() 
@@ -21,9 +22,7 @@ def getAll():
 
 @app.route('/boardgames', methods=['POST'])
 def add_item():
-    print("🔔 POST /boardgames received!")
     data = request.json
-    print("📦 Data received:", data)
     item = boardgamesDAO.create(data)
     return jsonify(item), 201
 
