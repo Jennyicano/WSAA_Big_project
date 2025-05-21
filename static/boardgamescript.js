@@ -178,3 +178,14 @@ function addBoardgameToTable(game) {
     row.insertCell(7).innerHTML = '<button onclick="doDelete(this)">Delete</button>';
 }
 
+function showMessage(message, type = 'success') {
+    const messageArea = document.getElementById('messageArea');
+    messageArea.textContent = message;
+    messageArea.className = 'alert alert-' + type;
+    messageArea.style.display = 'block';
+
+    setTimeout(() => {
+        messageArea.style.display = 'none';
+    }, 3000);
+}
+
