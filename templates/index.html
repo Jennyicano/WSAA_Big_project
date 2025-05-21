@@ -17,10 +17,13 @@
     <body>
         <h1>Boardgames</h1>
         <div id="messageArea" class="alert" style="display: none;"></div>
+        <div id="backToMainButton" style="display:none; margin-top:10px:">
+            <button onclick="showViewAll()">Back to Main Page</button>
+        </div>
         <div>
             <button id="showAddaboardgameButton" onclick="showAdd()">Create</button>
-        </div>   
-    
+        </div>
+
         <div>
             <table class="table" id="BoardgameTable" border="1">
             <thead>
@@ -36,49 +39,18 @@
                 </tr>
             </thead>
             <tbody id="BoardgameTableBody">
-                <!-- Example data, this should be dynamically generated -->
-                <tr>
-                    <td>0</td>
-                    <td>Game 0</td>
-                    <td>Boardgame</td>
-                    <td>8+</td>
-                    <td>2-4</td>
-                    <td>20</td>
-                    <td><button onclick="showUpdate(this)">Update</button></td>
-                    <td><button onclick="doDelete(this)">Delete</button></td>
-                </tr>   
-                <tr>
-                    <td>1</td>
-                    <td>Game 1</td>
-                    <td>Boardgame</td>
-                    <td>8+</td>
-                    <td>2-4</td>
-                    <td>20</td>
-                    <td><button onclick="showUpdate(this)">Update</button></td>
-                    <td><button onclick="doDelete(this)">Delete</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Catan</td>
-                    <td>Boardgame</td>
-                    <td>8+</td>
-                    <td>2-4</td>
-                    <td>20</td>
-                    <td><button onclick="showUpdate(this)">Update</button></td>
-                    <td><button onclick="doDelete(this)">Delete</button></td>
-                </tr>
             </tbody>
             </table>
             <br/>
-        
+
         </div>
 
         <div id='showBoardgameForm' style="display:none;">
             <h2>
-                <span id="createLabel">Create a</span> 
+                <span id="createLabel">Create a</span>
                 <span id="updateLabel" style="display:none;">Update</span> Boardgame
             </h2>
-                
+
                 <input type="hidden" name="id" id="idInput"/>
                 Name: <input type="text" name="Name" id="nameInput"><br/>
                 Product type: <input type="text" name="Product_type" id="productTypeInput"><br/>
@@ -88,6 +60,7 @@
 
                 <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
                 <span><button id="doUpdateButton" onclick="doUpdate()" style="display:none;">Update</button></span>
+                <span><button onclick="showViewAll()">Back to Main Page</button></span>
         </div>
 
 
@@ -100,7 +73,7 @@
             <span><button id="doCancelButton" onclick="doCancel()">Cancel</button></span>
         </div>
 
-       <!-- JavaScript file  --> 
+       <!-- JavaScript file  -->
         <script src="{{url_for('static', filename='boardgamescript.js')}}"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function() {getAllBoardgames();});

@@ -1,18 +1,19 @@
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
-import dbconfig as db  
+import dbconfig as db
 from boardgamesDAO import boardgamesDAO
 
 app = Flask(__name__, static_url_path='', static_folder='static')
- 
+
 # REST API Routes
 @app.route('/')
 def index():
     return render_template('index.html')
 
+#curl "http://127.0.0.1:5000/boardgames"
 @app.route('/boardgames', methods=['GET'])
 def getAll():
-    items = boardgamesDAO.getAll() 
+    items = boardgamesDAO.getAll()
     return jsonify(items)
 
 @app.route('/boardgames', methods=['POST'])
@@ -36,3 +37,4 @@ def delete_item(item_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+    

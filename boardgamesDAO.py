@@ -1,9 +1,8 @@
 # create  boardgamesDAO as a database access object (DAO) for the boardgames table
 # Author: Jenny Ibanez Cano
 
-
 import mysql.connector
-import dbconfig as db 
+import dbconfig as db
 
 class BoardgamesDAO:
     connection=""
@@ -12,13 +11,13 @@ class BoardgamesDAO:
     user=""
     password=""
     database=""
-    
+
     def __init__(self):
         self.host = db.mysql['host']
         self.user = db.mysql['user']
         self.password = db.mysql['password']
         self.database = db.mysql['database']
-        
+
     def getcursor(self):
         self.connection = mysql.connector.connect(
             host=self.host,
@@ -28,11 +27,11 @@ class BoardgamesDAO:
         )
         self.cursor = self.connection.cursor()
         return self.cursor
-    
+
     def closeAll(self):
         self.connection.close()
         self.cursor.close()
-         
+
     def getAll(self):
         cursor = self.getcursor()
         sql="select * from Boardgames;"
@@ -43,7 +42,7 @@ class BoardgamesDAO:
         for result in results:
             #print(result)
             returnArray.append(self.convertToDictionary(result))
-        
+
         self.closeAll()
         return returnArray
 
@@ -61,7 +60,7 @@ class BoardgamesDAO:
     def create(self, boardgame):
         cursor = self.getcursor()
         # Adding a fallback for age_range if it's None
-        age_range = boardgame.get("Age_range") or "N/A"  
+        age_range = boardgame.get("Age_range") or "N/A"
         values = (
         boardgame.get("Name"),
         boardgame.get("Product_type"),
@@ -77,17 +76,17 @@ class BoardgamesDAO:
         newid = cursor.lastrowid
         boardgame["id"] = newid
         self.closeAll()
-        return 
-    
+        return boardgame
+
     def update(self, id, boardgame):
         cursor = self.getcursor()
         sql="update Boardgames set Name= %s, Product_type=%s, Age_range=%s, Players=%s, Price=%s where id = %s;"
+
         values = (boardgame.get("Name"), boardgame.get("Product_type"), boardgame.get("Age_range"), boardgame.get("Players"), boardgame.get("Price"), id)
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
-        return 
-        
+
     def delete(self, id):
         cursor = self.getcursor()
         sql="delete from Boardgames where id = %s;"
@@ -103,7 +102,7 @@ class BoardgamesDAO:
         currentkey = 0
         for attrib in resultLine:
             boardgame[attkeys[currentkey]] = attrib
-            currentkey = currentkey + 1 
+            currentkey = currentkey + 1
         return boardgame
 
 boardgamesDAO = BoardgamesDAO()

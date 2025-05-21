@@ -1,14 +1,15 @@
 // This script handles the CRUD operations for boardgames in the web application
 // Load boardgames from the server and display them in the table
 
-document.addEventListener('DOMContentLoaded', getAllBoardgames);
-
 function getAllBoardgames() {
     $.ajax({
         url: '/boardgames',
         method: 'GET',
         dataType: 'json',
         success: function (result) {
+            // Clean the table to avoid any duplicate
+            document.getElementById('BoardgameTableBody').innerHTML = '';
+
             for (let game of result) {
                 addBoardgameToTable(game);
             }
@@ -69,8 +70,6 @@ function doCreate() {
             clearForm();
             showViewAll();
             showMessage(`Board game "${createdGame.Name}" created successfully!`, 'success');
-            document.getElementById('BoardgameTableBody').innerHTML = '';
-            getAllBoardgames();
         },
         error: function (xhr, status, error) {
             console.error("Error creating boardgame:", xhr.responseText || error);
@@ -164,7 +163,7 @@ function getBoardgameFromForm() {
         Price: parseInt(form.querySelector('input[name="Price"]').value)
     };
 }
- 
+
 // This function clears the values of the form fields
 function clearForm() {
     document.getElementById('idInput').value = '';
@@ -193,12 +192,14 @@ function addBoardgameToTable(game) {
 
 function showMessage(message, type = 'success') {
     const messageArea = document.getElementById('messageArea');
+    const backToMainButton = document.getElementById('backToMainButton');
+
     messageArea.textContent = message;
     messageArea.className = 'alert alert-' + type;
     messageArea.style.display = 'block';
 
     setTimeout(() => {
         messageArea.style.display = 'none';
+        backToMainButton.style.display ='none';
     }, 3000);
 }
-
