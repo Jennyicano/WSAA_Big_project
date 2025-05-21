@@ -77,16 +77,16 @@ class BoardgamesDAO:
         newid = cursor.lastrowid
         boardgame["id"] = newid
         self.closeAll()
-        return boardgame
+        return 
     
     def update(self, id, boardgame):
         cursor = self.getcursor()
         sql="update Boardgames set Name= %s, Product_type=%s, Age_range=%s, Players=%s, Price=%s where id = %s;"
-        
         values = (boardgame.get("Name"), boardgame.get("Product_type"), boardgame.get("Age_range"), boardgame.get("Players"), boardgame.get("Price"), id)
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
+        return 
         
     def delete(self, id):
         cursor = self.getcursor()

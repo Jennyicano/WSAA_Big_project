@@ -4,7 +4,6 @@ charset-normalizer==3.4.1
 click==8.2.0
 colorama==0.4.6
 Flask==3.1.0
-Flask_Cors==5.0.0
 idna==3.10
 importlib-metadata==8.5.0
 itsdangerous==2.2.0
@@ -16,8 +15,6 @@ PyMySQL==1.1.1
 requests==2.32.3
 setuptools==56.0.0
 urllib3==2.2.3
-Werkzeug==3.0.1
+Werkzeug==3.1.0
 zipp==3.21.0
 Jinja2==3.1.6
-
-
