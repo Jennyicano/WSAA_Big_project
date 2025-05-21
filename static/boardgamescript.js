@@ -7,8 +7,10 @@ function getAllBoardgames() {
         method: 'GET',
         dataType: 'json',
         success: function (result) {
+            console.log("Fetched Boardgames:", result);
+            const tbody = document.getElementById('BoardgameTableBody');
             // Clean the table to avoid any duplicate
-            document.getElementById('BoardgameTableBody').innerHTML = '';
+            tbody.innerHTML = '';
 
             for (let game of result) {
                 addBoardgameToTable(game);
@@ -158,8 +160,8 @@ function getBoardgameFromForm() {
         id: form.querySelector('input[name="id"]').value,
         Name: form.querySelector('input[name="Name"]').value,
         Product_type: form.querySelector('input[name="Product_type"]').value,
-        Age_range: parseInt(form.querySelector('input[name="Age_range"]').value),
-        Players: parseInt(form.querySelector('input[name="Players"]').value),
+        Age_range: form.querySelector('input[name="Age_range"]').value,
+        Players: form.querySelector('input[name="Players"]').value,
         Price: parseInt(form.querySelector('input[name="Price"]').value)
     };
 }
@@ -175,8 +177,8 @@ function clearForm() {
 }
 
 function addBoardgameToTable(game) {
-    const table = document.getElementById('BoardgameTable');
-    const row = table.insertRow(-1);
+    const tbody = document.getElementById('BoardgameTableBody');
+    const row = tbody.insertRow(-1);
     row.setAttribute("id", game.id);
 
     row.insertCell(0).textContent = game.id;

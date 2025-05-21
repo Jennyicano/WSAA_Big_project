@@ -11,7 +11,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <!-- CSS -->
         <link rel="stylesheet" href="{{url_for('static', filename='tablestyle.css')}}">
-    
+
     </head>
 
     <body>
@@ -54,8 +54,8 @@
                 <input type="hidden" name="id" id="idInput"/>
                 Name: <input type="text" name="Name" id="nameInput"><br/>
                 Product type: <input type="text" name="Product_type" id="productTypeInput"><br/>
-                Age range: <input type="number" name="Age_range" id="ageRangeInput"><br/>
-                Players: <input type="number" name="Players" id="playersInput"><br/>
+                Age range: <input type="text" name="Age_range" id="ageRangeInput"><br/>
+                Players: <input type="text" name="Players" id="playersInput"><br/>
                 Price: <input type="number" name="Price" id="priceInput"><br/><br/>
 
                 <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
