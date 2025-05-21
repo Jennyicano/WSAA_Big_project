@@ -1,12 +1,9 @@
 from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
 import mysql.connector
 import dbconfig as db  
 from boardgamesDAO import boardgamesDAO
 
-app = Flask(__name__)
-CORS(app) # Enable CORS for all routes
-app.config['CORS_HEADERS'] = 'Content-Type'
+app = Flask(__name__, static_url_path='', static_folder='static')
  
 # REST API Routes
 @app.route('/')
