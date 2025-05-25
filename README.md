@@ -4,6 +4,8 @@
 
 **Author:** Jennifer Ibanez Cano. Student of Higher Diploma in Science in Computing in Data Analytics at the [ATU Galway](https://www.atu.ie), 2025.
 
+![image](https://darkwood.lv/image/catalog/categories/boardgames.jpg)
+
 **About this repository**
 
 This repository contains my final project for the Web Services and Applications (WSAA) module, 2025. The main goal is to develop a web application that allows for board game management, implementing concepts of web service architecture and modern applications.
