@@ -1,3 +1,8 @@
+# Boardgames Web Application - Flask Server
+# This file sets up a Flask server to handle REST API requests for board games.
+# It connects to a MySQL database using the boardgamesDAO class for data operations.
+# Author: Jenny Ibanez Cano
+
 from flask import Flask, request, jsonify, render_template
 import mysql.connector
 import dbconfig as db

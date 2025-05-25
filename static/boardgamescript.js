@@ -69,10 +69,11 @@ function doCreate() {
         contentType: 'application/json',
         data: JSON.stringify(game),
         success: function (createdGame) {
-            clearForm();
-            showViewAll();
-            showMessage(`Board game "${createdGame.Name}" created successfully!`, 'success');
-        },
+        clearForm();
+        showViewAll();
+        addBoardgameToTable(createdGame); // or getAllBoardgames();
+        showMessage(`Board game "${createdGame.Name}" created successfully!`, 'success');
+},
         error: function (xhr, status, error) {
             console.error("Error creating boardgame:", xhr.responseText || error);
             showMessage("Error creating boardgame.", 'error');
@@ -162,7 +163,7 @@ function getBoardgameFromForm() {
         Product_type: form.querySelector('input[name="Product_type"]').value,
         Age_range: form.querySelector('input[name="Age_range"]').value,
         Players: form.querySelector('input[name="Players"]').value,
-        Price: parseInt(form.querySelector('input[name="Price"]').value)
+        Price: parseFloat(form.querySelector('input[name="Price"]').value)
     };
 }
 

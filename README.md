@@ -4,6 +4,9 @@
 
 **Author:** Jennifer Ibanez Cano. Student of Higher Diploma in Science in Computing in Data Analytics at the [ATU Galway](https://www.atu.ie), 2025.
 
+[![Live Demo](https://img.shields.io/badge/Myweb-PythonAnywhere-green)](https://jennyicano.pythonanywhere.com)
+
+
 ![image](https://darkwood.lv/image/catalog/categories/boardgames.jpg)
 
 **About this repository**
@@ -12,7 +15,7 @@ This repository contains my final project for the Web Services and Applications 
 
 ## 🧩 Project Description
 
-This projects follow the instructions provided in the Github of the lecture [Andrew Beatty](https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/labs/WSAA%20Project%20Description.pdf)
+This project follows the instructions provided in the Github of the lecture [Andrew Beatty](https://github.com/andrewbeattycourseware/WSAA-Courseware/blob/main/labs/WSAA%20Project%20Description.pdf)
 
 The application allows users to:
 
@@ -29,6 +32,7 @@ WSAA_Big_project/
 ├── static/                         # Static assets (CSS, JS)
 │   ├── boardgamescript.js          # JavaScript for frontend interactions
 │   └── style.css                   # Stylesheet for the frontend
+│   └── boardgames.png              # Image for the web interface
 ├── templates/                      # HTML templates for rendering views
 │   └── index.html                  # Main HTML page
 ├── .gitignore                      # Git ignore rules
@@ -43,7 +47,7 @@ WSAA_Big_project/
 
 ## 📝 Project Overview
 
-The goal of this project is to demonstrate an understanding of **creating and consuming RESTful APIs** in a real-world web application. It allows for flexibility, which makes it useful for real-world scenarios, as you can easily adapt it for different use cases.
+The goal of this project is to demonstrate an understanding of **creating and consuming RESTful APIs** in a real-world web application. The design allows flexibility, making it suitable for real-world use cases and easily adaptable for future features.
 
 ### Project Features:
 
@@ -205,7 +209,12 @@ The following resources helped resolve issues with static file serving:
   Solution: Found helpful answers on Stack Overflow:
   [StackOverflow Help](https://stackoverflow.com/questions/77364550/attributeerror-module-pkgutil-has-no-attribute-impimporter-did-you-mean)
 
-### 5. ChatGPT Assistance
+### 5. Adding images in the web HTML: 
+
+Information about how to add the image in my HTML:
+[W3Schools HTML Images](https://www.w3schools.com/html/html_images.asp)
+
+### 6. ChatGPT Assistance
 
 ChatGPT helped polish the **HTML** and **JavaScript** code and helped structure the `README.md`.
 
